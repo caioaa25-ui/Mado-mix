@@ -1,0 +1,7 @@
+{
+  "name": "Moda Elite - E-commerce & Afiliados",
+  "description": "Uma plataforma profissional de e-commerce de moda com sistema integrado de afiliados, gestão de pedidos e dashboard administrativo.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
