@@ -34,7 +34,8 @@ const AffiliateDashboard: React.FC = () => {
 
   const copyLink = () => {
     if (!affiliateData) return;
-    const link = `${window.location.origin}/#/ref=${affiliateData.codigoReferencia}`;
+    // Ajustado para o formato padrão do HashRouter: /#/?ref=CODE
+    const link = `${window.location.origin}/#/?ref=${affiliateData.codigoReferencia}`;
     navigator.clipboard.writeText(link);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

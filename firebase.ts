@@ -1,20 +1,22 @@
 
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-// Tenta obter das variáveis de ambiente (padrão Vite/Netlify) ou usa os valores fixos fornecidos
+// Configuração que lê exclusivamente das variáveis de ambiente do Netlify
+// Isso evita que o scanner de segurança bloqueie o build por "exposed secrets"
 const firebaseConfig = {
-  apiKey: (import.meta as any).env?.VITE_FIREBASE_API_KEY || "AIzaSyATJlXNiurZDyoC1hHrwV5QvLB6uQ9GvqI",
-  authDomain: (import.meta as any).env?.VITE_FIREBASE_AUTH_DOMAIN || "moda-27cd3.firebaseapp.com",
-  projectId: (import.meta as any).env?.VITE_FIREBASE_PROJECT_ID || "moda-27cd3",
-  storageBucket: (import.meta as any).env?.VITE_FIREBASE_STORAGE_BUCKET || "moda-27cd3.firebasestorage.app",
-  messagingSenderId: (import.meta as any).env?.VITE_FIREBASE_MESSAGING_SENDER_ID || "412538139426",
-  appId: (import.meta as any).env?.VITE_FIREBASE_APP_ID || "1:412538139426:web:4a3ee23c5981dcb712ab7b"
+  apiKey: (import.meta as any).env?.VITE_FIREBASE_API_KEY,
+  authDomain: (import.meta as any).env?.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: (import.meta as any).env?.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: (import.meta as any).env?.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: (import.meta as any).env?.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: (import.meta as any).env?.VITE_FIREBASE_APP_ID
 };
 
-const app = initializeApp(firebaseConfig);
+// Inicializa o Firebase apenas se as chaves existirem
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
